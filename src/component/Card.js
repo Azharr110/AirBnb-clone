@@ -1,21 +1,32 @@
 import React from "react";
 import imgStar from "../Assets/Star.png"
 
-export default function Props({coverImg, rating, reviewCount, location, title, price, discription}){
-  return(
-    <div className="card">
+export default function Props({item, coverImg, rating, reviewCount, location, title, price, discription, openSpots}){
 
+let badgeText
+if(item.openSpots === 0 ){
+  badgeText = "SOLD OUT"
+}
+else if(item.location === "Online"){
+  badgeText = "ONLINE"
+}
+
+  return(
+
+    <div className="card">
+    
+    {badgeText && <div className="card--badge">{badgeText}</div>  }
         
-        <img src={coverImg} className="card--image" />
+        <img src={item.coverImg} className="card--image" />
         <div className="card--stats">
             <img src={imgStar} className="card--star" />
-            <span>{rating}</span>
-            <span className="gray">({reviewCount})</span>
-            <span className="gray">  • {location}</span>
+            <span>{item.stats.rating}</span>
+            <span className="gray">({item.stats.reviewCount})</span>
+            <span className="gray">  • {item.location}</span>
         </div>
-        <p className="card--title">{title}</p>
+        <p className="card--title">{item.title}</p>
         {/* <h6>{discription}</h6> */}
-        <p className="card--price"> <span className="bold">From {price}</span>  / person</p>
+        <p className="card--price"> <span className="bold">From {item.price}</span>  / person</p>
         
     </div>
   )
